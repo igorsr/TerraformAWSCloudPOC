@@ -1,13 +1,13 @@
 # Require TF version to be same as or greater than 0.12.13
 terraform {
   required_version = ">=1.3.6"
-  backend "s3" {
-    bucket         = "igorrusso-terraform-test"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "aws-locks"
-    encrypt        = true
-  }
+  #backend "s3" {
+  #  bucket         = "igorrusso-terraform-test"
+  #  key            = "terraform.tfstate"
+  #  region         = "us-east-1"
+  #  dynamodb_table = "aws-locks"
+  #  encrypt        = true
+  #}
 }
 
 # Download any stable version in AWS provider of 2.36.0 or higher in 2.36 train
@@ -16,17 +16,15 @@ provider "aws" {
   version = "~> 2.36.0"
 }
 
-/*
+
 module "bootstrap" {
   source                      = "./modules/bootstrap"
-  name_of_s3_bucket           = "your_globally_unique_bucket_name"
+  name_of_s3_bucket           = "igorrusso-terraform-test"
   dynamo_db_table_name        = "aws-locks"
-  iam_user_name               = "IamUser"
-  ado_iam_role_name           = "IamRole"
-  aws_iam_policy_permits_name = "IamPolicyPermits"
-  aws_iam_policy_assume_name  = "IamPolicyAssume"
 }
-*/
+
+/*
+
 
 # Build the VPC
 resource "aws_vpc" "vpc" {
@@ -54,4 +52,4 @@ resource "aws_route_table" "route_table2" {
   }
 }
 
-
+*/
