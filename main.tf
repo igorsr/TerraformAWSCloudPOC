@@ -1,13 +1,13 @@
 # Require TF version to be same as or greater than 0.12.13
 terraform {
   required_version = ">=1.3.6"
-  #backend "s3" {
-  #  bucket         = "igorrusso-terraform-test"
-  #  key            = "terraform.tfstate"
-  #  region         = "us-east-1"
-  #  dynamodb_table = "aws-locks"
-  #  encrypt        = true
-  #}
+  backend "s3" {
+    bucket         = "igorrusso-terraform-test"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "aws-locks"
+    encrypt        = true
+  }
 }
 
 # Download any stable version in AWS provider of 2.36.0 or higher in 2.36 train
@@ -23,7 +23,7 @@ module "bootstrap" {
   dynamo_db_table_name        = "aws-locks"
 }
 
-/*
+
 
 
 # Build the VPC
@@ -52,4 +52,3 @@ resource "aws_route_table" "route_table2" {
   }
 }
 
-*/
