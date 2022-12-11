@@ -24,7 +24,6 @@ module "bootstrap" {
 }
 
 
-/*
 
 # Build the VPC
 resource "aws_vpc" "vpc" {
@@ -51,5 +50,3 @@ resource "aws_route_table" "route_table2" {
     Terraform = "true"
   }
 }
-
-*/
