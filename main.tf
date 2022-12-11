@@ -83,3 +83,69 @@ resource "aws_route_table_association" "igorrusso_pub_association" {
   subnet_id      = aws_subnet.igorrusso_public_subnet.id
   route_table_id = aws_route_table.igorrusso_rt.id
 }
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+   owners = ["099720109477"] # Canonical
+  
+}
+
+
+resource "aws_instance" "tcb_blog_ec2" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+  key_name = "dev" # Insira o nome da chave criada antes.
+  subnet_id = aws_subnet.igorrusso_public_subnet.id
+  vpc_security_group_ids = [aws_security_group.permitir_ssh_http.id]
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "ec2_do_igao"  
+  }
+}
+
+
+
+resource "aws_security_group" "permitir_ssh_http" {
+  name        = "permitir_ssh"
+  description = "Permite SSH e HTTP na instancia EC2"
+  vpc_id      = aws_vpc.igorrusso_vpc.id
+
+  ingress {
+    description = "SSH to EC2"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTP to EC2"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "permitir_ssh_e_http"
+  }
+}
