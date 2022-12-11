@@ -23,7 +23,8 @@ module "bootstrap" {
   dynamo_db_table_name        = "aws-locks"
 }
 
-/*
+
+
 
 
 # Criação da VPC
@@ -148,5 +149,3 @@ resource "aws_security_group" "permitir_ssh_http" {
     Name = "permitir_ssh_e_http"
   }
 }
-
-*/
