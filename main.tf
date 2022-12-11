@@ -23,8 +23,7 @@ module "bootstrap" {
   dynamo_db_table_name        = "aws-locks"
 }
 
-
-
+/*
 
 
 # Criação da VPC
@@ -102,7 +101,7 @@ data "aws_ami" "ubuntu" {
 }
 
 
-resource "aws_instance" "tcb_blog_ec2" {
+resource "aws_instance" "ec2_do_igao" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
   key_name = "dev" # Insira o nome da chave criada antes.
@@ -149,3 +148,5 @@ resource "aws_security_group" "permitir_ssh_http" {
     Name = "permitir_ssh_e_http"
   }
 }
+
+*/
